@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class TicketServiceimpl implements TicketService {
+public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
@@ -66,9 +66,10 @@ public class TicketServiceimpl implements TicketService {
         if (!getUnderageIdoneity(userYear, movie.getMinAge())) {
             throw new UnderAgeException();
         }
-        Integer hallSize = Utils.getInteger(hallService.getById(show.getHall().getId()).getCapacityHall());
         ticketDto.setPriceTicket(getDiscount(userYear, movie.getPrice()).toString());
-        if ((show.getTickets().size() + 1) > hallSize) {
+        Integer hallSize = Utils.getInteger(hallService.getById(show.getHall().getId()).getCapacityHall());
+        Integer occupiedSeats = ticketRepository.getOccupiedSeats(show.getId());
+        if ((occupiedSeats + 1) > hallSize) {
             throw new NoSeatsAvailableException();
         }
         return ticketRepository.save(ticketDto.toModel()).toDto();
@@ -103,9 +104,9 @@ public class TicketServiceimpl implements TicketService {
 
     private Double getDiscount(Integer age, Double price) {
         if (age < 5) {
-            return price = price * 0.5;
+            return price = price-(price * 0.5);
         } else if (age > 70) {
-            return price = price * 0.1;
+            return price = price-(price * 0.1);
         } else {
             return price;
         }

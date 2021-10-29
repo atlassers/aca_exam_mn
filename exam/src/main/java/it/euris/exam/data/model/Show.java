@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -35,9 +36,9 @@ public class Show implements Model {
     @JoinColumn(name = "hall_id", nullable = false)
     private Hall hall;
 
-
+@Builder.Default
     @OneToMany(mappedBy = "show",fetch = FetchType.EAGER) // FetchType.Eager?
-    private List<Ticket> tickets;
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Show(String showId) {
         if (showId != null) {
