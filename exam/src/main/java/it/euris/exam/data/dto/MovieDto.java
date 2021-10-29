@@ -35,7 +35,7 @@ public class MovieDto implements Dto {
                 .category(Utils.getCategory(categoryMovie))
                 .name(nameMovie)
                 .price(Double.parseDouble(priceMovie))
-                .minAge(minAgeMovie==null?1000:Integer.parseInt(minAgeMovie))
+                .minAge(minAgeMovie==null?0:Integer.parseInt(minAgeMovie))
                 .author(authorMovie)
                 .producer(producerMovie)
                 .length(Utils.getInteger(lengthMovie))
