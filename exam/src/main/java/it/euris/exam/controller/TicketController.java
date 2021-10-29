@@ -23,7 +23,13 @@ public class TicketController {
       return ticketService.getById(id);
   }
 
-  @DeleteMapping("/v0/{id}")
+    @GetMapping("/v0/get-show-revenue/{idShow}")
+    public Double getShowRevenue(@PathVariable("idShow") Long id) {
+        return ticketService.getShowRevenue(id);
+    }
+
+
+    @DeleteMapping("/v0/{id}")
   public Boolean delete(@PathVariable("id") Long id) {
       return ticketService.delete(id);
   }
@@ -32,6 +38,8 @@ public class TicketController {
   public TicketDto insert(@RequestBody TicketDto dto) {
       return ticketService.add(dto);
   }
+
+
 
   @PutMapping("/v0")
   public TicketDto update(@RequestBody TicketDto dto) {

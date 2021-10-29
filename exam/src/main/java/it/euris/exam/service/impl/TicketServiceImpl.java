@@ -1,10 +1,7 @@
 package it.euris.exam.service.impl;
 
 import it.euris.exam.UT.Utils;
-import it.euris.exam.data.dto.MovieDto;
-import it.euris.exam.data.dto.ShowDto;
 import it.euris.exam.data.dto.TicketDto;
-import it.euris.exam.data.dto.UserDto;
 import it.euris.exam.data.model.Movie;
 import it.euris.exam.data.model.Show;
 import it.euris.exam.data.model.Ticket;
@@ -89,20 +86,23 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findById(id).isEmpty();
     }
 
-    public static Integer getYearsOutOfBirth(LocalDate birth) {
+    @Override
+    public Integer getYearsOutOfBirth(LocalDate birth) {
         LocalDate now = LocalDate.now();
         Period age = Period.between(birth, now);
         return age.getYears();
     }
 
-    public static Boolean getUnderageIdoneity(Integer age, Integer requiredAge) {
+    @Override
+    public  Boolean getUnderageIdoneity(Integer age, Integer requiredAge) {
         if (requiredAge > age) {
             return false;
         }
         return true;
     }
 
-    private Double getDiscount(Integer age, Double price) {
+    @Override
+    public Double getDiscount(Integer age, Double price) {
         if (age < 5) {
             return price = price-(price * 0.5);
         } else if (age > 70) {
@@ -110,6 +110,11 @@ public class TicketServiceImpl implements TicketService {
         } else {
             return price;
         }
+    }
+
+    @Override
+    public Double getShowRevenue(Long idShow){
+        return ticketRepository.getRevenueOfShow(idShow);
     }
 
 }

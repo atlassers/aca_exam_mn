@@ -1,5 +1,7 @@
 package it.euris.exam.UT;
 
+import it.euris.exam.data.enums.Category;
+
 import java.time.LocalDate;
 
 public class Utils {
@@ -31,6 +33,15 @@ public class Utils {
         }
         return Long.parseLong(num);
     }
+
+    public static Category getCategory(String value){
+        if (value==null){
+            return null;
+        }
+        return Category.valueOf(value);
+    }
+
+
 
 
 }
